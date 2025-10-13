@@ -53,34 +53,36 @@ The wireframe shows the initial sketch of the game layout, including the grid of
 ---
 
 ## 💻 Code Snippet
-Here’s how the game checks for matching cards and updates the score:
-
-```javascript
-function checkForMatch() {
-  const isMatch = firstCard.dataset.name === secondCard.dataset.name;
-  if (isMatch) {
-    disableCards();
-  } else {
-    unflipCards();
-  }
-}
+Below is a key function from the game logic — it checks for matching cards and updates the score using localStorage and cookies:
 
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
   score++;
   scoreElement.textContent = score;
+
+  // Save high score in Local Storage
   saveScore(score);
+  document.querySelector(".high-score").textContent = getHighScore();
+
+  // Save player stats using cookies
+  const playerName = localStorage.getItem("playerName") || "Guest";
+  savePlayerStats(playerName, score);
+
+  // Check if all pairs are found
+  checkWin();
   resetBoard();
 }
 
 ---
 
-## Explaination
-checkForMatch() compares the data-name attributes of the two flipped cards.
-If they match, disableCards() disables further clicking on those cards and increments the score.
-The score is saved to localStorage for persistence across sessions.
-If they don’t match, unflipCards() flips them back after a short delay.
+## Explanation:
+This function runs when two flipped cards match. It:
+1. Disables further clicks on the matched pair
+2. Increases and displays the score
+3. Updates the high score using localStorage
+4. Saves player stats (name and score) as a cookie
+5. Checks if the player has completed all pairs
 
 ---
 

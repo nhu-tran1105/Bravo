@@ -1,13 +1,3 @@
-// export function saveScore(score) {
-//   localStorage.setItem('highScore', Math.max(score, getHighScore()));
-// }
-
-// export function getHighScore() {
-//   return parseInt(localStorage.getItem('highScore')) || 0;
-// }
-
-
-// ---- LocalStorage: High Score ----
 export function saveScore(score) {
   localStorage.setItem("highScore", Math.max(score, getHighScore()));
 }
@@ -16,7 +6,6 @@ export function getHighScore() {
   return parseInt(localStorage.getItem("highScore")) || 0;
 }
 
-// ---- Cookies: Player Info + Stats ----
 export function setCookie(name, value, days) {
   const d = new Date();
   d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
@@ -35,7 +24,6 @@ export function getCookie(name) {
   return "";
 }
 
-// ---- Player Stats Helper ----
 export function savePlayerStats(playerName, score) {
   const stats = `Name: ${playerName}, Score: ${score}`;
   setCookie("playerStats", stats, 7);
