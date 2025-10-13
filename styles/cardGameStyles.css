@@ -128,3 +128,12 @@ p{
   background-repeat: no-repeat;
   background-color: #1f2833;
 }
+
+.dev-card {
+  width: 40rem;
+}
+
+.dev-card img {
+  max-width: 100%;
+  height: auto;
+}
