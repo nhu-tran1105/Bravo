@@ -73,7 +73,9 @@ function disableCards() {
   secondCard.removeEventListener("click", flipCard);
   score++;
   scoreElement.textContent = score;
+  const highScoreElement = document.querySelector(".high-score");
   saveScore(score);
+  highScoreElement.textContent = getHighScore();
   resetBoard();
 }
 
@@ -97,10 +99,13 @@ function restart() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initGame();
-});
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme === 'light') document.body.classList.add('light-theme');
 
-console.log("%cHint: Type `themeSwap()` in the console to change theme!", "color: #6fffd0;");
+  const highScoreElement = document.querySelector(".high-score");
+  highScoreElement.textContent = getHighScore();
+  initGame();
+});1
 
 window.themeSwap = function() {
   document.body.classList.toggle('light-theme');

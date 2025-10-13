@@ -21,7 +21,13 @@ body {
 
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: repeat(3, 100px);
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: repeat(6, 1fr); 
   }
 }
 
@@ -69,21 +75,22 @@ p{
 
 .grid-container{
   display: grid;
-  justify-content: center;
   gap: 16px;
-  grid-template-columns: repeat(6, 140px);
-  grid-template-rows: repeat(2, calc(140px /2 *3));
+  grid-template-columns: repeat(6, 1fr);
 }
 
 .card{
-  height: calc(140px / 2 * 3);
-  width: 140px;
+  width: 100%;
+  aspect-ratio: 2 / 3;  
   border-radius: 10px;
   background-color: white;
   position: relative;
   transform-style: preserve-3d;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .front-image{
