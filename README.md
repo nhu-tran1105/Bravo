@@ -55,24 +55,23 @@ The wireframe shows the initial sketch of the game layout, including the grid of
 ## 💻 Code Snippet
 Below is a key function from the game logic — it checks for matching cards and updates the score using localStorage and cookies:
 
+```javascripts
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
   score++;
   scoreElement.textContent = score;
 
-  // Save high score in Local Storage
+  const highScoreElement = document.querySelector(".high-score");
   saveScore(score);
-  document.querySelector(".high-score").textContent = getHighScore();
+  highScoreElement.textContent = getHighScore();
 
-  // Save player stats using cookies
   const playerName = localStorage.getItem("playerName") || "Guest";
   savePlayerStats(playerName, score);
-
-  // Check if all pairs are found
-  checkWin();
+  checkWin(); 
   resetBoard();
 }
+```
 
 ---
 
