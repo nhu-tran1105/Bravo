@@ -31,6 +31,11 @@ body {
   }
 }
 
+.btn-close {
+  filter: invert(1); 
+  opacity: 1;        
+}
+
 .grid-container .card:nth-child(odd) {
   border: 2px solid var(--color-accent);
 }
