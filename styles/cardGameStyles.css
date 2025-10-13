@@ -1,9 +1,36 @@
-body{
-  min-height: 100vh;
-  min-width: 100vw;
-  background-color: #12181f;
+:root {
+  --color-bg: #603F26;
+  --color-accent: #E7B10A;
+  --spacing: 16px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  background-color: var(--color-bg);
+  font-family: 'Poppins', sans-serif;
   color: white;
-  font-family: Arial, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 100px);
+  }
+}
+
+.grid-container .card:nth-child(odd) {
+  border: 2px solid var(--color-accent);
+}
+
+button:hover + p {
+  color: var(--color-accent);
 }
 
 h1{
@@ -88,7 +115,7 @@ p{
 }
 
 .card .back {
-  background-image: url("assets/pattern.svg"); 
+  background-image: url("../images/pattern.svg"); 
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

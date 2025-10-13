@@ -1,25 +1,31 @@
+import { saveScore, getHighScore } from './storage.js';
+
 const gridContainer = document.querySelector(".grid-container");
 let cards = [];
 let firstCard, secondCard;
 let lockBoard = false;
 let score = 0;
-document.querySelector(".score").textContent = score;
+const scoreElement = document.querySelector(".score");
 
 const baseCards = [
-  { name: "bear", image: "assets/bear.png" },
-  { name: "cat", image: "assets/cat.png" },
-  { name: "dog", image: "assets/dog.png" },
-  { name: "fox", image: "assets/fox.png" },
-  { name: "frog", image: "assets/frog.png" },
-  { name: "panda", image: "assets/panda.png" },
-  { name: "penguin", image: "assets/penguin.png" },
-  { name: "rabbit", image: "assets/rabbit.png" },
-  { name: "tiger", image: "assets/tiger.png" },
+  { name: "bear", image: "images/bear.png" },
+  { name: "cat", image: "images/cat.png" },
+  { name: "dog", image: "images/dog.png" },
+  { name: "fox", image: "images/fox.png" },
+  { name: "frog", image: "images/frog.png" },
+  { name: "panda", image: "images/panda.png" },
+  { name: "penguin", image: "images/penguin.png" },
+  { name: "rabbit", image: "images/rabbit.png" },
+  { name: "tiger", image: "images/tiger.png" },
 ];
 
+export function initGame() {
 cards = [...baseCards, ...baseCards]; 
   shuffleCards();
   generateCards();
+  score = 0;
+  scoreElement.textContent = score;
+}
 
 function shuffleCards() {
   for (let i = cards.length - 1; i > 0; i--) {
@@ -36,8 +42,7 @@ function generateCards() {
     cardElement.setAttribute("data-name", card.name);
     cardElement.innerHTML = `
       <div class="front">
-        <img class="front-image" src="${card.image}" />
-      </div>
+        <img class="front-image" src="${card.image}" alt="${card.name}" ></div>
       <div class="back"></div>
     `;
     cardElement.addEventListener("click", flipCard);
@@ -47,17 +52,14 @@ function generateCards() {
 
 function flipCard() {
   if (lockBoard || this === firstCard) return;
-  this.classList.add("flipped");
-
+    this.classList.add("flipped");
   if (!firstCard) {
     firstCard = this;
     return;
   }
-
   secondCard = this;
   lockBoard = true;
-  score++;
-  document.querySelector(".score").textContent = score;
+  scoreElement.textContent = score;
   checkForMatch();
 }
 
@@ -69,6 +71,9 @@ function checkForMatch() {
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
+  score++;
+  scoreElement.textContent = score;
+  saveScore(score);
   resetBoard();
 }
 
@@ -91,4 +96,14 @@ function restart() {
   initGame();
 }
 
-initGame();
+document.addEventListener("DOMContentLoaded", () => {
+  initGame();
+});
+
+console.log("%cHint: Type `themeSwap()` in the console to change theme!", "color: #6fffd0;");
+
+window.themeSwap = function() {
+  document.body.classList.toggle('light-theme');
+};
+
+window.restart = restart;
